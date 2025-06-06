@@ -1,4 +1,6 @@
 from colorama import init, Fore, Style
+
+# Inisialisasi colorama supaya otomatis reset warna setelah print
 init(autoreset=True)
 
 def color_text(text, color):

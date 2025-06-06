@@ -40,6 +40,40 @@ class PasswordChecker:
         except Exception as e:
             print(color_text(f"[ERROR] Gagal membaca wordlist RockYou: {e}", "red"))
 
+    def is_in_rockyou(self, pwd):
+        if not os.path.isfile(ROCKYOU_PATH):
+            return False
+        try:
+            with gzip.open(ROCKYOU_PATH, 'rt', encoding='utf-8', errors='ignore') as f:
+                for line in f:
+                    if pwd == line.strip():
+                        return True
+            return False
+        except Exception:
+            return False
+
+    def suggest_password(self):
+        base = self.password.lower()
+        suggestions = []
+
+        # Tambah uppercase dan angka + simbol
+        if base:
+            suggestions.append(base.capitalize() + "123!")
+            suggestions.append(base.capitalize() + "@2025")
+            suggestions.append(base.capitalize() + "2025#")
+
+        # Tambah angka dan simbol tanpa uppercase
+        suggestions.append(base + "123!")
+        suggestions.append(base + "!@#")
+
+        # Hapus duplikat
+        suggestions = list(dict.fromkeys(suggestions))
+
+        # Filter agar saran tidak ada di wordlist rockyou
+        filtered = [s for s in suggestions if not self.is_in_rockyou(s)]
+
+        return filtered[:3]  # maksimal 3 saran
+
     def run_all_checks(self):
         self.check_length()
         self.check_uppercase()
