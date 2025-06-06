@@ -21,42 +21,31 @@ Python >= 3.6
 Tkinter (usually pre-installed)
 
 📦 Linux
-bash
-Salin
-Edit
-sudo apt update
-sudo apt install python3 python3-tk
+
+$sudo apt update
+
+$sudo apt install python3 python3-tk
+
 🐧 Arch Linux
-bash
-Salin
-Edit
+
 sudo pacman -S python tk
+
 🪟 Windows
 Tkinter is typically included with the Python installer.
 
 🚀 How to Run
 1. Clone the Repository
-bash
-Salin
-Edit
 git clone https://github.com/cimiesyu/autopasscheck.git
 cd autopasscheck
 2. Create Folder for Wordlist
-bash
-Salin
-Edit
 mkdir -p data
 3. Download the rockyou.txt Wordlist
-bash
-Salin
-Edit
 wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
 mv rockyou.txt data/
 4. Run the Application
-bash
-Salin
-Edit
 python3 autopass_gui.py
+
+
 🎮 Usage
 Enter your password into the input field
 
@@ -67,29 +56,18 @@ View the security indicator and recommendations below the table
 If the password is weak, click Generate New Password to get a strong password suggestion
 
 📂 Project Structure
-bash
-Salin
-Edit
-autopasscheck/
-├── autopass_gui.py       # Main GUI interface
-├── checker.py            # Password checking functions
-├── utils.py              # Utilities and password suggestions
-├── data/
-│   └── rockyou.txt       # Rockyou wordlist
-├── README.md
+![image](https://github.com/user-attachments/assets/3f6c0db3-f3e9-4cb5-a775-d14170f554f7)
+
+
+
+
+
+
+
 🐛 Example Outputs
-🔴 Too short: "Password is too short, minimum 8 characters"
+![image](https://github.com/user-attachments/assets/3ba504d4-2798-4752-8ca6-6a51c2e190e7)
 
-🟡 Missing numbers/symbols/uppercase letters
 
-🟢 Strong password and not found in the wordlist
-
-💡 Tips
-Use a mix of uppercase letters, numbers, and unique symbols
-
-Avoid common or leaked passwords
-
-Update your passwords regularly
 
 📜 License
 MIT License © 2025 cimiesyu
