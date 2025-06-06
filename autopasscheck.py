@@ -1,56 +1,21 @@
-from colorama import Fore, Style, init
-import re
-
-init(autoreset=True)
-
-def password_strength(password):
-    score = 0
-
-    # Panjang password minimal 8 karakter
-    if len(password) >= 8:
-        score += 1
-    else:
-        print(Fore.RED + "Password terlalu pendek, minimal 8 karakter.")
-
-    # Ada huruf kecil
-    if re.search(r'[a-z]', password):
-        score += 1
-    else:
-        print(Fore.RED + "Tambahkan huruf kecil.")
-
-    # Ada huruf besar
-    if re.search(r'[A-Z]', password):
-        score += 1
-    else:
-        print(Fore.RED + "Tambahkan huruf besar.")
-
-    # Ada angka
-    if re.search(r'\d', password):
-        score += 1
-    else:
-        print(Fore.RED + "Tambahkan angka.")
-
-    # Ada simbol khusus
-    if re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-        score += 1
-    else:
-        print(Fore.RED + "Tambahkan simbol khusus.")
-
-    return score
+from checker import PasswordChecker
+from utils import color_text
 
 def main():
-    print(Fore.CYAN + "=== AutoPassCheck ===")
+    print(color_text("=== AutoPassCheck ===", "cyan"))
     password = input("Masukkan password yang ingin dicek: ")
 
-    score = password_strength(password)
-    print()
+    checker = PasswordChecker(password)
+    issues = checker.run_all_checks()
 
-    if score == 5:
-        print(Fore.GREEN + "Password sangat kuat!")
-    elif 3 <= score < 5:
-        print(Fore.YELLOW + "Password cukup kuat, tapi bisa diperbaiki.")
+    if issues:
+        for issue in issues:
+            # merah untuk issue berat, kuning untuk yang kurang penting
+            color = "red" if "wordlist" in issue or "pendek" in issue else "yellow"
+            print(color_text(issue, color))
+        print(color_text("\nPassword lemah, perlu diperbaiki.", "red"))
     else:
-        print(Fore.RED + "Password lemah, perlu diperbaiki.")
+        print(color_text("Password kuat.", "green"))
 
 if __name__ == "__main__":
     main()
